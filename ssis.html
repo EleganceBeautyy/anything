@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ST Stephens School Spicy Chats</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ✅ makes it mobile-friendly -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    header {
+      background: #25D366;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      position: relative;
+      z-index: 2;
+    }
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 700px;
+      margin: 15px auto;
+      padding: 15px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 2;
+    }
+    .chat-bubble {
+      background: #dcf8c6;
+      padding: 8px;
+      border-radius: 15px;
+      max-width: 85%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      align-self: flex-start;
+    }
+    .chat-bubble img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    /* 🔥 Floating text */
+    .floating-text {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      font-size: 28px;
+      font-weight: bold;
+      color: red;
+      transform: translate(-50%, -50%);
+      animation: float 6s ease-in-out infinite;
+      z-index: 1;
+      pointer-events: none;
+      text-shadow: 2px 2px 8px #00000055;
+      text-align: center;
+    }
+    @keyframes float {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      50% { transform: translate(-55%, -60%) rotate(10deg); }
+      100% { transform: translate(-50%, -50%) rotate(0deg); }
+    }
+
+    /* 🔥 Fire rain */
+    .fire {
+      position: fixed;
+      top: -50px;
+      font-size: 22px;
+      animation: fall linear infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* 📱 Mobile adjustments */
+    @media (max-width: 600px) {
+      header {
+        font-size: 20px;
+        padding: 12px;
+      }
+      .chat-container {
+        padding: 10px;
+        margin: 10px;
+      }
+      .chat-bubble {
+        max-width: 95%;
+        font-size: 14px;
+      }
+      .floating-text {
+        font-size: 22px;
+      }
+      .fire {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>ST Stephens School Spicy Chats</header>
+
+  <!-- Floating text -->
+  <div class="floating-text" id="floatingText">🔥 Spicyyy 🔥</div>
+
+  <div class="chat-container" id="chatContainer">
+    <!-- Images will load here -->
+  </div>
+
+  <script>
+    // 🖼️ List of chat images
+    const chatImages = [
+      "chat1.jpg",
+      "chat2.jpg",
+      "chat3.png"
+    ];
+
+    const chatContainer = document.getElementById('chatContainer');
+
+    chatImages.forEach(fileName => {
+      const bubble = document.createElement('div');
+      bubble.classList.add('chat-bubble');
+      const img = document.createElement('img');
+      img.src = "images/" + fileName; 
+      img.alt = "Chat Image";
+      bubble.appendChild(img);
+      chatContainer.appendChild(bubble);
+    });
+
+    // 🔥 Fire emoji rain
+    function createFire() {
+      const fire = document.createElement('div');
+      fire.classList.add('fire');
+      fire.innerText = "🔥";
+      fire.style.left = Math.random() * window.innerWidth + "px";
+      fire.style.animationDuration = (3 + Math.random() * 2) + "s"; // random speed
+      document.body.appendChild(fire);
+
+      setTimeout(() => { fire.remove(); }, 5000);
+    }
+
+    setInterval(createFire, 300); // new fire every 0.3s
+
+    // ✨ Floating text cycling
+    const floatingText = document.getElementById("floatingText");
+    const texts = [
+      "🔥 Spicyyy 🔥",
+      "😂 LOL 😂",
+      "🥵 HOT 🥵",
+      "💬 Gossip Time 💬",
+      "😱 Shocking 😱",
+      "🤣 ROFL 🤣"
+    ];
+
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % texts.length;
+      floatingText.textContent = texts[index];
+    }, 3000); // change every 3s
+  </script>
+
+</body>
+</html>
